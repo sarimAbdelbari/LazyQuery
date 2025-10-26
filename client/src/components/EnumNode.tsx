@@ -1,3 +1,4 @@
+import { Handle, Position } from '@xyflow/react';
 import type { NodeProps } from '@xyflow/react';
 import { memo } from 'react';
 import { useTheme } from '../lib/contexts/theme';

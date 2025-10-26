@@ -6,8 +6,8 @@ import { SettingsProvider } from './lib/contexts/settings';
 import { ColorThemeKind } from './lib/types/schema';
 import type { Enum, Model, ModelConnection } from './lib/types/schema';
 import { ReactFlowProvider } from '@xyflow/react';
-import { ModuleSelector } from './components/ModuleSelector';
-import { PrismaParser } from './utils/prismaParser';
+import { SchemaUpload } from './components/SchemaUpload';
+import { PrismaParser } from './parsers';
 
 type ViewMode = 'select' | 'visualize' | 'chat';
 
@@ -61,7 +61,7 @@ function App() {
   return (
     <>
       {viewMode === 'select' && !showModeChoice && (
-        <ModuleSelector onSchemaLoad={handleSchemaLoad} />
+        <SchemaUpload onSchemaLoad={handleSchemaLoad} />
       )}
 
       {/* Mode Selection Modal */}
