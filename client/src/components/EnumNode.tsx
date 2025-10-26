@@ -12,15 +12,17 @@ export const EnumNode = memo(({ data }: NodeProps<EnumNodeType>) => {
   return (
     <div
       className={`
-        rounded-xl 
-        border 
-        ${isDarkMode ? 'border-gray-700 bg-[#1c1c1c]' : 'border-gray-300 bg-white'}
-        shadow-md 
+        rounded-2xl 
+        border-2 
+        ${isDarkMode ? 'border-[rgba(255,255,255,0.1)] bg-[rgba(17,17,17,0.95)]' : 'border-gray-300 bg-white'}
+        shadow-lg
+        backdrop-blur-xl
         overflow-hidden 
-        transition-shadow 
+        transition-all 
         duration-300 
-        hover:shadow-lg
-        min-w-[150px]
+        hover:shadow-[0_0_30px_rgba(6,182,212,0.2)]
+        hover:border-[rgba(255,255,255,0.2)]
+        min-w-[180px]
       `}
     >
       {/* Always render target handle for incoming connections */}
@@ -38,39 +40,40 @@ export const EnumNode = memo(({ data }: NodeProps<EnumNodeType>) => {
       />
 
       <div
-        className="p-2 text-center"
+        className="p-3 text-center"
         style={{
-          background: `linear-gradient(to right, ${settings.theme.enumColor}, ${settings.theme.enumColor}dd)`,
+          background: `linear-gradient(135deg, ${settings.theme.enumColor}, ${settings.theme.enumColor}dd)`,
         }}
       >
         <div
-          className="font-semibold tracking-wide text-white"
+          className="font-bold text-lg tracking-wide text-white"
         >
           {data.name}
         </div>
       </div>
 
-      <div className="flex flex-col divide-y divide-gray-200 dark:divide-gray-700 max-h-[500px] overflow-y-auto">
+      <div className="flex flex-col divide-y divide-[rgba(255,255,255,0.1)] max-h-[500px] overflow-y-auto">
         {data.values.map((value, index) => (
           <div
             key={value}
             className={`
-              px-3 py-2 
-              text-sm 
+              px-4 py-3 
+              text-base 
               ${
                 isDarkMode
                   ? index % 2 === 0
-                    ? 'bg-[#ffffff]'
-                    : 'bg-[#ffffff]'
+                    ? 'bg-[rgba(255,255,255,0.03)]'
+                    : 'bg-[rgba(255,255,255,0.06)]'
                   : index % 2 === 0
                     ? 'bg-gray-50'
                     : 'bg-white'
               }
+              hover:bg-[rgba(255,255,255,0.1)]
               transition-colors 
               duration-200
             `}
           >
-            <span className="font-mono text-sm">{value}</span>
+            <span className="font-mono text-sm text-white">{value}</span>
           </div>
         ))}
       </div>

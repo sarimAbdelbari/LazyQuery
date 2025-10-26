@@ -96,13 +96,13 @@ export const TableSelector = ({
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg border border-gray-600 transition-colors"
+        className="flex items-center gap-3 px-5 py-3 bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)] text-white rounded-xl transition-all duration-300 shadow-lg"
       >
-        <span className="text-sm font-medium">
+        <span className="text-base font-semibold">
           Tables ({selectedCount}/{totalCount}) 
         </span>
         <svg
-          className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -112,35 +112,35 @@ export const TableSelector = ({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2  bg-gray-800 border border-gray-600 rounded-lg shadow-xl z-50 max-h-96 overflow-hidden">
+        <div className="absolute top-full left-0 mt-3 bg-[rgba(17,17,17,0.95)] backdrop-blur-2xl border border-[rgba(255,255,255,0.1)] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-50 max-h-96 overflow-hidden">
           {/* Header */}
-          <div className="p-3 border-b border-gray-600">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold text-white">Select Tables</h3>
+          <div className="p-5 border-b border-[rgba(255,255,255,0.1)]">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-base font-bold text-white">Select Tables</h3>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   handleToggleAll();
                 }}
-                className="text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                className="text-sm text-[#667eea] hover:text-[#764ba2] transition-colors font-semibold"
               >
                 {validSelectedTables.length === allTables.length ? 'Deselect All' : 'Select All'}
               </button>
             </div>
-            <div className="text-xs text-gray-400">
+            <div className="text-sm text-[#a1a1aa]">
               {selectedCount} of {totalCount} tables selected
             </div>
           </div>
 
           {/* Search */}
-          <div className="p-3 border-b border-gray-600">
+          <div className="p-5 border-b border-[rgba(255,255,255,0.1)]">
             <div className="relative">
               <input
                 type="text"
                 placeholder="Search tables..."
                 value={searchQuery}
                 onChange={handleSearchChange}
-                className="w-full px-3 py-2 pr-8 bg-gray-700 border border-gray-600 rounded text-white text-sm placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-3 pr-10 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-white text-base placeholder-[#71717a] focus:outline-none focus:border-[#667eea] transition-all backdrop-blur-sm"
               />
               {searchQuery && (
                 <button
@@ -148,17 +148,17 @@ export const TableSelector = ({
                     setSearchQuery('');
                     setCurrentPage(1);
                   }}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a1a1aa] hover:text-white transition-colors"
                   title="Clear search"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               )}
             </div>
             {searchQuery && (
-              <div className="mt-2 text-xs text-gray-400">
+              <div className="mt-3 text-sm text-[#a1a1aa]">
                 Showing {filteredTables.length} of {allTables.length} tables
               </div>
             )}
@@ -170,7 +170,7 @@ export const TableSelector = ({
               paginatedTables.map((table) => (
               <label
                 key={table.name}
-                className="flex items-center gap-3 px-3 py-2 hover:bg-gray-700 cursor-pointer transition-colors"
+                className="flex items-center gap-4 px-5 py-3 hover:bg-[rgba(255,255,255,0.05)] cursor-pointer transition-all"
               >
                 <input
                   type="checkbox"
@@ -179,51 +179,51 @@ export const TableSelector = ({
                     e.stopPropagation();
                     handleToggleTable(table.name);
                   }}
-                  className="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500 focus:ring-2"
+                  className="w-5 h-5 text-[#667eea] bg-[rgba(255,255,255,0.05)] border-[rgba(255,255,255,0.2)] rounded focus:ring-[#667eea] focus:ring-2"
                 />
-                <div className="flex items-center gap-2 flex-1">
-                  <span className={`text-xs px-2 py-1 rounded ${
+                <div className="flex items-center gap-3 flex-1">
+                  <span className={`text-xs px-3 py-1.5 rounded-full font-semibold ${
                     table.type === 'Model' 
-                      ? 'bg-blue-600 text-white' 
-                      : 'bg-purple-600 text-white'
+                      ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white' 
+                      : 'bg-gradient-to-r from-[#06b6d4] to-[#3b82f6] text-white'
                   }`}>
                     {table.type}
                   </span>
-                  <span className="text-sm text-white font-mono">{table.name}</span>
+                  <span className="text-base text-white font-mono">{table.name}</span>
                 </div>
               </label>
               ))
             ) : (
-              <div className="p-8 text-center text-gray-400">
-                <div className="text-4xl mb-2">🔍</div>
-                <div className="text-sm">No tables found</div>
-                <div className="text-xs mt-1">Try a different search term</div>
+              <div className="p-12 text-center text-[#a1a1aa]">
+                <div className="text-5xl mb-3">🔍</div>
+                <div className="text-base font-semibold">No tables found</div>
+                <div className="text-sm mt-1">Try a different search term</div>
               </div>
             )}
           </div>
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="p-3 border-t border-gray-600">
+            <div className="p-5 border-t border-[rgba(255,255,255,0.1)]">
               <div className="flex items-center justify-between">
-                <div className="text-xs text-gray-400">
+                <div className="text-sm text-[#a1a1aa]">
                   Page {currentPage} of {totalPages} ({filteredTables.length} results)
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-2 py-1 text-xs bg-gray-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600"
+                    className="px-4 py-2 text-sm bg-[rgba(255,255,255,0.05)] text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[rgba(255,255,255,0.1)] transition-all"
                   >
                     Previous
                   </button>
-                  <span className="text-xs text-gray-400">
+                  <span className="text-sm text-[#a1a1aa] font-semibold">
                     {currentPage}
                   </span>
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-2 py-1 text-xs bg-gray-700 text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-600"
+                    className="px-4 py-2 text-sm bg-[rgba(255,255,255,0.05)] text-white rounded-xl disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[rgba(255,255,255,0.1)] transition-all"
                   >
                     Next
                   </button>
@@ -233,10 +233,10 @@ export const TableSelector = ({
           )}
 
           {/* Footer */}
-          <div className="p-3 border-t border-gray-600">
-            <div className="flex items-center justify-between text-xs text-gray-400">
-              <span>Models: {models.length}</span>
-              <span>Enums: {enums.length}</span>
+          <div className="p-5 border-t border-[rgba(255,255,255,0.1)]">
+            <div className="flex items-center justify-between text-sm text-[#a1a1aa]">
+              <span className="font-medium">Models: {models.length}</span>
+              <span className="font-medium">Enums: {enums.length}</span>
             </div>
           </div>
         </div>

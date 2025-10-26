@@ -141,16 +141,14 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
   };
 
   return (
-    <div className={`absolute top-4 left-4 z-50 ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+    <div className={`absolute top-4 left-4 z-[99] ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
       <div className="relative">
         {/* Search Input */}
         <div className="flex items-center gap-2">
           <div className="relative">
             <Search 
-              size={20} 
-              className={`absolute left-3 top-1/2 transform -translate-y-1/2 ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-500'
-              }`} 
+              size={22} 
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa]"
             />
             <input
               ref={inputRef}
@@ -159,24 +157,14 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsExpanded(true)}
-              className={`
-                pl-10 pr-10 py-2 w-64 rounded-lg border text-sm
-                ${isDarkMode 
-                  ? 'bg-gray-800 border-gray-600 text-white placeholder-gray-400' 
-                  : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                }
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                transition-all duration-200
-              `}
+              className="pl-12 pr-12 py-3 w-80 rounded-xl border-2 text-base bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border-[rgba(255,255,255,0.1)] text-white placeholder-[#71717a] focus:outline-none focus:ring-2 focus:ring-[#667eea] focus:border-[#667eea] transition-all duration-300 shadow-lg"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className={`absolute right-3 top-1/2 transform -translate-y-1/2 ${
-                  isDarkMode ? 'text-gray-400 hover:text-white' : 'text-gray-500 hover:text-gray-700'
-                }`}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa] hover:text-white transition-colors"
               >
-                <X size={16} />
+                <X size={20} />
               </button>
             )}
           </div>
@@ -184,78 +172,63 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
 
         {/* Search Results Dropdown */}
         {isExpanded && searchQuery && (
-          <div className={`
-            absolute top-full mt-2 w-80 max-h-96 overflow-y-auto rounded-lg border shadow-lg
-            ${isDarkMode 
-              ? 'bg-gray-800 border-gray-600' 
-              : 'bg-white border-gray-300'
-            }
-          `}>
+          <div className="absolute top-full mt-3 w-96 max-h-[500px] overflow-y-auto rounded-2xl border-2 shadow-[0_8px_32px_rgba(0,0,0,0.5)] bg-[rgba(17,17,17,0.95)] backdrop-blur-2xl border-[rgba(255,255,255,0.1)]" style={{ overflowY: 'auto' }}>
             {searchResults.length > 0 ? (
-              <div className="p-2">
-                <div className={`text-xs font-medium mb-2 ${
-                  isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                }`}>
+              <div className="p-4">
+                <div className="text-sm font-bold mb-4 text-[#a1a1aa]">
                   Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}
                 </div>
                 {searchResults.map((result, index) => (
                   <div
                     key={`${result.modelName}-${result.fieldName}-${index}`}
                     onClick={() => handleFieldClick(result)}
-                    className={`
-                      p-3 rounded-lg cursor-pointer transition-colors duration-150
-                      ${isDarkMode 
-                        ? 'hover:bg-gray-700 border border-gray-700' 
-                        : 'hover:bg-gray-50 border border-gray-200'
-                      }
-                    `}
+                    className="p-4 rounded-xl cursor-pointer transition-all duration-200 hover:bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)] mb-2"
                   >
-                    <div className="flex items-start gap-3">
-                      <div className="flex-shrink-0 mt-0.5">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 mt-1 text-[#667eea]">
                         {getIconForType(result.fieldType)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className="font-medium text-sm">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="font-semibold text-base text-white">
                             {result.fieldName}
                           </span>
-                          <div className="flex gap-1">
+                          <div className="flex gap-2">
                             {result.isPrimaryKey && (
-                              <span className="text-xs bg-red-500 text-white px-1.5 py-0.5 rounded">
+                              <span className="text-xs bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-1 rounded-full font-semibold">
                                 PK
                               </span>
                             )}
                             {result.isForeignKey && !result.isPrimaryKey && (
-                              <span className="text-xs bg-yellow-500 text-white px-1.5 py-0.5 rounded">
+                              <span className="text-xs bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2 py-1 rounded-full font-semibold">
                                 FK
                               </span>
                             )}
                             {result.isRelation && (
-                              <span className="text-xs bg-blue-500 text-white px-1.5 py-0.5 rounded">
+                              <span className="text-xs bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white px-2 py-1 rounded-full font-semibold">
                                 REL
                               </span>
                             )}
                             {result.isEnum && (
-                              <span className="text-xs bg-purple-500 text-white px-1.5 py-0.5 rounded">
+                              <span className="text-xs bg-gradient-to-r from-[#06b6d4] to-[#3b82f6] text-white px-2 py-1 rounded-full font-semibold">
                                 ENUM
                               </span>
                             )}
                           </div>
                         </div>
-                        <div className={`text-xs ${
-                          isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                        }`}>
-                          <div className="flex items-center gap-1">
-                            <Database size={12} />
-                            <span>{result.modelName}</span>
+                        <div className="text-sm text-[#a1a1aa]">
+                          <div className="flex items-center gap-2 mb-1">
+                            <Database size={14} />
+                            <span className="font-medium">{result.modelName}</span>
                           </div>
-                          <div className="flex items-center gap-1 mt-1">
+                          <div className="flex items-center gap-2">
                             {getIconForType(result.fieldType)}
                             <span className="font-mono">{result.fieldType}</span>
                           </div>
                           {result.enumValues && result.enumValues.length > 0 && (
-                            <div className="mt-1">
-                              <span className="text-xs">Values: {result.enumValues.join(', ')}</span>
+                            <div className="mt-2 pt-2 border-t border-[rgba(255,255,255,0.1)]">
+                              <span className="text-xs font-semibold">Values: </span>
+                              <span className="text-xs">{result.enumValues.join(', ')}</span>
                             </div>
                           )}
                         </div>
@@ -265,11 +238,9 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
                 ))}
               </div>
             ) : (
-              <div className={`p-4 text-center ${
-                isDarkMode ? 'text-gray-400' : 'text-gray-600'
-              }`}>
-                <Search size={24} className="mx-auto mb-2 opacity-50" />
-                <div className="text-sm">No fields found matching "{searchQuery}"</div>
+              <div className="p-8 text-center text-[#a1a1aa]">
+                <Search size={32} className="mx-auto mb-3 opacity-50" />
+                <div className="text-base font-semibold">No fields found matching "{searchQuery}"</div>
               </div>
             )}
           </div>

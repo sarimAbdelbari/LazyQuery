@@ -2,7 +2,7 @@ import {
   createContext,
   useContext,
   useState,
-  ReactNode,
+  type ReactNode,
   useCallback,
 } from 'react';
 
@@ -30,11 +30,11 @@ export const DEFAULT_SETTINGS: DiagramSettings = {
   showBackground: true,
   backgroundVariant: 'lines',
   theme: {
-    primaryColor: '#3b82f6',
-    secondaryColor: '#6366f1',
-    enumColor: '#10b981',
+    primaryColor: '#667eea',
+    secondaryColor: '#764ba2',
+    enumColor: '#06b6d4',
     titleColor: '#ffffff',
-    backgroundColor: '#1c1c1c',
+    backgroundColor: '#0a0a0a',
   },
 };
 
