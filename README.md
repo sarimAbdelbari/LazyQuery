@@ -92,7 +92,7 @@ Instantly find any field across your entire schema with the powerful search feat
 
 4. **Open your browser**
    ```
-   Navigate to 
+   Navigate to lazy-query.vercel.app
    ```
 
 ---

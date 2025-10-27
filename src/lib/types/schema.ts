@@ -29,12 +29,14 @@ export type Enum = {
   values: string[];
 };
 
-export enum ColorThemeKind {
-  Light = 1,
-  Dark = 2,
-  HighContrast = 3,
-  HighContrastLight = 4,
-}
+export const ColorThemeKind = {
+  Light: 1,
+  Dark: 2,
+  HighContrast: 3,
+  HighContrastLight: 4,
+} as const;
+
+export type ColorThemeKind = typeof ColorThemeKind[keyof typeof ColorThemeKind];
 
 export type EnumNodeType = Node<Enum>;
 export type ModelNodeType = Node<Model>;

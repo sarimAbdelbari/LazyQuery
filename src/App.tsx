@@ -17,10 +17,10 @@ function App() {
   const [connections, setConnections] = useState<ModelConnection[]>([]);
   const [theme] = useState<ColorThemeKind>(ColorThemeKind.Dark);
   const [currentModule, setCurrentModule] = useState<string>('');
-  const [schemaContent, setSchemaContent] = useState<string>('');
   const [viewMode, setViewMode] = useState<ViewMode>('select');
   const [showModeChoice, setShowModeChoice] = useState(false);
   const [tempSchemaData, setTempSchemaData] = useState<{ content: string; name: string } | null>(null);
+  
 
   const handleSchemaLoad = (schemaContent: string, moduleName: string) => {
     // Store schema data and show mode choice
@@ -37,7 +37,6 @@ function App() {
       setEnums(parsed.enums);
       setConnections(parsed.connections);
       setCurrentModule(tempSchemaData.name);
-      setSchemaContent(tempSchemaData.content);
       setViewMode(mode);
       setShowModeChoice(false);
     } catch (error) {
@@ -52,7 +51,6 @@ function App() {
     setEnums([]);
     setConnections([]);
     setCurrentModule('');
-    setSchemaContent('');
     setViewMode('select');
     setShowModeChoice(false);
     setTempSchemaData(null);

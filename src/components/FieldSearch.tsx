@@ -21,7 +21,7 @@ interface SearchResult {
   enumValues?: string[];
 }
 
-const typeIcons: Record<string, JSX.Element> = {
+const typeIcons: Record<string, React.ReactElement> = {
   string: <Type size={16} />,
   int: <Hash size={16} />,
   float: <Hash size={16} />,
