@@ -47,7 +47,11 @@
 - **Settings Panel** - Customize colors and layout
 
 ---
+## 📸 Screenshots
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f976267f-04c0-459a-a6dc-e5fa36763abc" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/0e9de9c3-4dfa-47ec-a609-f6925c9a8974" />
 
+---
 ## 🎬 Demo
 
 ### Schema Upload
