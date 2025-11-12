@@ -202,7 +202,7 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
         } else if (connection.relationType === 'many-to-one') {
           edgeColor = isDarkMode ? '#f59e0b' : '#d97706'; // Amber/Orange for N:1
         } else if (connection.relationType === 'one-to-one') {
-          edgeColor = isDarkMode ? '#8b5cf6' : '#7c3aed'; // Purple for 1:1
+          edgeColor = isDarkMode ? '#00527d' : '#004268'; // Blue for 1:1
         } else if (connection.relationType === 'many-to-many') {
           edgeColor = isDarkMode ? '#06b6d4' : '#0891b2'; // Cyan/Teal for M:N
         }

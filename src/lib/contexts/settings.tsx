@@ -30,11 +30,11 @@ export const DEFAULT_SETTINGS: DiagramSettings = {
   showBackground: true,
   backgroundVariant: 'lines',
   theme: {
-    primaryColor: '#667eea',
-    secondaryColor: '#764ba2',
-    enumColor: '#06b6d4',
+    primaryColor: '#00527d',
+    secondaryColor: '#001477',
+    enumColor: '#4da7ca',
     titleColor: '#ffffff',
-    backgroundColor: '#0a0a0a',
+    backgroundColor: '#000a14',
   },
 };
 

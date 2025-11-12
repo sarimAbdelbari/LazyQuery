@@ -12,7 +12,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
       success: 'bg-[rgba(16,185,129,0.1)] border-emerald-500/30 text-emerald-300',
       error: 'bg-[rgba(239,68,68,0.1)] border-red-500/30 text-red-300',
       warning: 'bg-[rgba(245,158,11,0.1)] border-amber-500/30 text-amber-300',
-      info: 'bg-[rgba(102,126,234,0.1)] border-[#667eea]/30 text-blue-300',
+      info: 'bg-[rgba(0,82,125,0.1)] border-[#00527d]/30 text-blue-300',
     };
     
     const icons = {

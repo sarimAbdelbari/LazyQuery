@@ -143,15 +143,15 @@ export const FileUpload = ({ onFileSelect, onError }: FileUploadProps) => {
           className={`
             relative cursor-pointer rounded-3xl border-2 border-dashed transition-all duration-300 p-16
             ${isDragging 
-              ? 'border-[#667eea] bg-[rgba(102,126,234,0.1)] shadow-[0_0_40px_rgba(102,126,234,0.3)]' 
-              : 'border-[rgba(255,255,255,0.2)] hover:border-[rgba(255,255,255,0.3)] bg-[rgba(255,255,255,0.02)]'
+              ? 'border-[#00527d] bg-[rgba(0,82,125,0.1)] shadow-[0_0_40px_rgba(0,82,125,0.3)]' 
+              : 'border-[rgba(255,255,255,0.2)] hover:border-[rgba(255,255,255,0.3)] bg-[rgba(0,82,125,0.02)]'
             }
-            ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[rgba(255,255,255,0.04)]'}
+            ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[rgba(0,82,125,0.04)]'}
           `}
         >
           <div className="flex flex-col items-center justify-center text-center">
             <div className={`mb-6 transition-all duration-300 ${isDragging ? 'scale-110 rotate-12' : ''}`}>
-              <Upload className={`w-20 h-20 ${isDragging ? 'text-[#667eea]' : 'text-[#a1a1aa]'}`} />
+              <Upload className={`w-20 h-20 ${isDragging ? 'text-[#00527d]' : 'text-[rgba(255,255,255,0.6)]'}`} />
             </div>
             
             <h3 className="text-2xl font-bold text-white mb-3">

@@ -31,12 +31,12 @@ export const VisualizerPage = () => {
     <div className="w-full h-screen relative">
       <button
         onClick={handleBackToModules}
-        className="absolute top-4 left-4 z-50 px-6 py-3 bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)] cursor-pointer text-white rounded-xl shadow-lg transition-all duration-300 font-semibold hover:scale-[1.02]"
+        className="absolute top-4 left-4 z-50 px-6 py-3 bg-[rgba(0,82,125,0.03)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] hover:bg-[rgba(0,82,125,0.05)] hover:border-[rgba(255,255,255,0.2)] cursor-pointer text-white rounded-xl shadow-lg transition-all duration-300 font-semibold hover:scale-[1.02]"
       >
         ◀️ Back to Modules
       </button>
       
-      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
+      <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 bg-[rgba(0,82,125,0.03)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
         <h2 className="text-xl font-bold text-white tracking-tight">
           {currentModule}
         </h2>

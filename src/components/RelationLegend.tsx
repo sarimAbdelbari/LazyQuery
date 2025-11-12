@@ -35,13 +35,13 @@ export const RelationLegend = ({ enabledRelations, onRelationToggle }: RelationL
     { 
       type: 'One-to-One (1:1)', 
       key: 'one-to-one' as const,
-      color: isDarkMode ? '#8b5cf6' : '#7c3aed',
+      color: isDarkMode ? '#00527d' : '#004268',
       example: 'User → Profile'
     },
   ];
 
   return (
-    <div className="absolute bottom-4 right-4 z-40 p-6 rounded-2xl border-2 bg-[rgba(17,17,17,0.95)] backdrop-blur-2xl border-[rgba(255,255,255,0.1)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-w-[320px]">
+    <div className="absolute bottom-4 right-4 z-40 p-6 rounded-2xl border-2 bg-[rgba(0,49,83,0.95)] backdrop-blur-2xl border-[rgba(255,255,255,0.1)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-w-[320px]">
       <div className="flex items-center justify-between mb-5">
         <h3 className="text-base font-bold text-white flex items-center gap-2">
           <span className="text-2xl">🔗</span>
@@ -76,12 +76,12 @@ export const RelationLegend = ({ enabledRelations, onRelationToggle }: RelationL
       </div>
       <div className="space-y-3">
         {relations.map((rel) => (
-          <div key={rel.type} className="flex items-center gap-4 p-3 rounded-xl bg-[rgba(255,255,255,0.02)] hover:bg-[rgba(255,255,255,0.05)] transition-all">
+          <div key={rel.type} className="flex items-center gap-4 p-3 rounded-xl bg-[rgba(0,82,125,0.02)] hover:bg-[rgba(0,82,125,0.05)] transition-all">
             <input
               type="checkbox"
               checked={enabledRelations[rel.key]}
               onChange={() => onRelationToggle(rel.key)}
-              className="w-5 h-5 rounded border-2 bg-[rgba(255,255,255,0.05)] border-[rgba(255,255,255,0.2)] text-[#667eea] focus:ring-2 focus:ring-[#667eea] focus:ring-offset-0"
+              className="w-5 h-5 rounded border-2 bg-[rgba(0,82,125,0.03)] border-[rgba(255,255,255,0.2)] text-[#00527d] focus:ring-2 focus:ring-[#00527d] focus:ring-offset-0"
             />
             <div 
               className={`w-10 h-1 rounded-full transition-opacity shadow-sm ${
@@ -93,7 +93,7 @@ export const RelationLegend = ({ enabledRelations, onRelationToggle }: RelationL
               <div className={`text-sm font-bold transition-opacity text-white ${enabledRelations[rel.key] ? 'opacity-100' : 'opacity-50'}`}>
                 {rel.type}
               </div>
-              <div className={`text-xs transition-opacity text-[#a1a1aa] ${enabledRelations[rel.key] ? 'opacity-100' : 'opacity-50'}`}>
+              <div className={`text-xs transition-opacity text-[rgba(255,255,255,0.6)] ${enabledRelations[rel.key] ? 'opacity-100' : 'opacity-50'}`}>
                 {rel.example}
               </div>
             </div>

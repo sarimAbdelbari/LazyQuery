@@ -157,12 +157,12 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => setIsExpanded(true)}
-              className="pl-12 pr-12 py-3 w-80 rounded-xl border-2 text-base bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border-[rgba(255,255,255,0.1)] text-white placeholder-[#71717a] focus:outline-none focus:ring-2 focus:ring-[#667eea] focus:border-[#667eea] transition-all duration-300 shadow-lg"
+              className="pl-12 pr-12 py-3 w-80 rounded-xl border-2 text-base bg-[rgba(0,82,125,0.03)] backdrop-blur-xl border-[rgba(255,255,255,0.1)] text-white placeholder-[#71717a] focus:outline-none focus:ring-2 focus:ring-[#00527d] focus:border-[#00527d] transition-all duration-300 shadow-lg"
             />
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa] hover:text-white transition-colors"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[rgba(255,255,255,0.6)] hover:text-white transition-colors"
               >
                 <X size={20} />
               </button>
@@ -172,20 +172,20 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
 
         {/* Search Results Dropdown */}
         {isExpanded && searchQuery && (
-          <div className="absolute top-full mt-3 w-96 max-h-[500px] overflow-y-auto rounded-2xl border-2 shadow-[0_8px_32px_rgba(0,0,0,0.5)] bg-[rgba(17,17,17,0.95)] backdrop-blur-2xl border-[rgba(255,255,255,0.1)]" style={{ overflowY: 'auto' }}>
+          <div className="absolute top-full mt-3 w-96 max-h-[500px] overflow-y-auto rounded-2xl border-2 shadow-[0_8px_32px_rgba(0,0,0,0.5)] bg-[rgba(0,49,83,0.95)] backdrop-blur-2xl border-[rgba(255,255,255,0.1)]" style={{ overflowY: 'auto' }}>
             {searchResults.length > 0 ? (
               <div className="p-4">
-                <div className="text-sm font-bold mb-4 text-[#a1a1aa]">
+                <div className="text-sm font-bold mb-4 text-[rgba(255,255,255,0.6)]">
                   Found {searchResults.length} result{searchResults.length !== 1 ? 's' : ''}
                 </div>
                 {searchResults.map((result, index) => (
                   <div
                     key={`${result.modelName}-${result.fieldName}-${index}`}
                     onClick={() => handleFieldClick(result)}
-                    className="p-4 rounded-xl cursor-pointer transition-all duration-200 hover:bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)] mb-2"
+                    className="p-4 rounded-xl cursor-pointer transition-all duration-200 hover:bg-[rgba(0,82,125,0.05)] border border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)] mb-2"
                   >
                     <div className="flex items-start gap-4">
-                      <div className="flex-shrink-0 mt-1 text-[#667eea]">
+                      <div className="flex-shrink-0 mt-1 text-[#00527d]">
                         {getIconForType(result.fieldType)}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -205,18 +205,18 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
                               </span>
                             )}
                             {result.isRelation && (
-                              <span className="text-xs bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white px-2 py-1 rounded-full font-semibold">
+                              <span className="text-xs bg-gradient-to-r from-[#00527d] to-[#001477] text-white px-2 py-1 rounded-full font-semibold">
                                 REL
                               </span>
                             )}
                             {result.isEnum && (
-                              <span className="text-xs bg-gradient-to-r from-[#06b6d4] to-[#3b82f6] text-white px-2 py-1 rounded-full font-semibold">
+                              <span className="text-xs bg-gradient-to-r from-[#4da7ca] to-[#00527d] text-white px-2 py-1 rounded-full font-semibold">
                                 ENUM
                               </span>
                             )}
                           </div>
                         </div>
-                        <div className="text-sm text-[#a1a1aa]">
+                        <div className="text-sm text-[rgba(255,255,255,0.6)]">
                           <div className="flex items-center gap-2 mb-1">
                             <Database size={14} />
                             <span className="font-medium">{result.modelName}</span>

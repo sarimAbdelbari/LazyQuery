@@ -122,12 +122,12 @@ export const TableSelector = ({
                   e.stopPropagation();
                   handleToggleAll();
                 }}
-                className="text-sm text-[#667eea] hover:text-[#764ba2] transition-colors font-semibold"
+                className="text-sm text-[#00527d] hover:text-[#001477] transition-colors font-semibold"
               >
                 {validSelectedTables.length === allTables.length ? 'Deselect All' : 'Select All'}
               </button>
             </div>
-            <div className="text-sm text-[#a1a1aa]">
+            <div className="text-sm text-[rgba(255,255,255,0.6)]">
               {selectedCount} of {totalCount} tables selected
             </div>
           </div>
@@ -140,7 +140,7 @@ export const TableSelector = ({
                 placeholder="Search tables..."
                 value={searchQuery}
                 onChange={handleSearchChange}
-                className="w-full px-4 py-3 pr-10 bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)] rounded-xl text-white text-base placeholder-[#71717a] focus:outline-none focus:border-[#667eea] transition-all backdrop-blur-sm"
+                className="w-full px-4 py-3 pr-10 bg-[rgba(0,82,125,0.03)] border border-[rgba(255,255,255,0.1)] rounded-xl text-white text-base placeholder-[#71717a] focus:outline-none focus:border-[#00527d] transition-all backdrop-blur-sm"
               />
               {searchQuery && (
                 <button
@@ -148,7 +148,7 @@ export const TableSelector = ({
                     setSearchQuery('');
                     setCurrentPage(1);
                   }}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a1a1aa] hover:text-white transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[rgba(255,255,255,0.6)] hover:text-white transition-colors"
                   title="Clear search"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,7 +158,7 @@ export const TableSelector = ({
               )}
             </div>
             {searchQuery && (
-              <div className="mt-3 text-sm text-[#a1a1aa]">
+              <div className="mt-3 text-sm text-[rgba(255,255,255,0.6)]">
                 Showing {filteredTables.length} of {allTables.length} tables
               </div>
             )}
@@ -170,7 +170,7 @@ export const TableSelector = ({
               paginatedTables.map((table) => (
               <label
                 key={table.name}
-                className="flex items-center gap-4 px-5 py-3 hover:bg-[rgba(255,255,255,0.05)] cursor-pointer transition-all"
+                className="flex items-center gap-4 px-5 py-3 hover:bg-[rgba(0,82,125,0.05)] cursor-pointer transition-all"
               >
                 <input
                   type="checkbox"
@@ -179,13 +179,13 @@ export const TableSelector = ({
                     e.stopPropagation();
                     handleToggleTable(table.name);
                   }}
-                  className="w-5 h-5 text-[#667eea] bg-[rgba(255,255,255,0.05)] border-[rgba(255,255,255,0.2)] rounded focus:ring-[#667eea] focus:ring-2"
+                  className="w-5 h-5 text-[#00527d] bg-[rgba(0,82,125,0.03)] border-[rgba(255,255,255,0.2)] rounded focus:ring-[#00527d] focus:ring-2"
                 />
                 <div className="flex items-center gap-3 flex-1">
                   <span className={`text-xs px-3 py-1.5 rounded-full font-semibold ${
                     table.type === 'Model' 
-                      ? 'bg-gradient-to-r from-[#667eea] to-[#764ba2] text-white' 
-                      : 'bg-gradient-to-r from-[#06b6d4] to-[#3b82f6] text-white'
+                      ? 'bg-gradient-to-r from-[#00527d] to-[#001477] text-white' 
+                      : 'bg-gradient-to-r from-[#4da7ca] to-[#00527d] text-white'
                   }`}>
                     {table.type}
                   </span>

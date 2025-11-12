@@ -7,16 +7,16 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className = '', variant = 'default', children, ...props }, ref) => {
     const variants = {
-      default: 'bg-[rgba(17,17,17,0.8)] border border-[rgba(255,255,255,0.1)] shadow-lg',
-      elevated: 'bg-[rgba(26,26,26,0.95)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-md',
-      outlined: 'bg-[rgba(17,17,17,0.6)] border-2 border-[rgba(255,255,255,0.15)] backdrop-blur-sm',
-      glass: 'bg-[rgba(255,255,255,0.05)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]',
+      default: 'bg-[rgba(0,82,125,0.03)] border border-[rgba(255,255,255,0.1)] shadow-lg',
+      elevated: 'bg-[rgba(0,49,83,0.95)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] backdrop-blur-md',
+      outlined: 'bg-[rgba(0,82,125,0.06)] border-2 border-[rgba(255,255,255,0.15)] backdrop-blur-sm',
+      glass: 'bg-[rgba(0,82,125,0.03)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] shadow-[0_8px_32px_rgba(0,0,0,0.4)]',
     };
     
     return (
       <div
         ref={ref}
-        className={`rounded-2xl transition-all duration-300 hover:border-[rgba(255,255,255,0.2)] ${variants[variant]} ${className}`}
+        className={`rounded-2xl transition-all duration-300 hover:border-[rgba(255,255,255,0.2)] hover:shadow-[0_20px_40px_rgba(0,82,125,0.2)] ${variants[variant]} ${className}`}
         {...props}
       >
         {children}
@@ -54,7 +54,7 @@ CardTitle.displayName = 'CardTitle';
 export const CardDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
   ({ className = '', children, ...props }, ref) => {
     return (
-      <p ref={ref} className={`text-[#a1a1aa] mt-3 text-lg leading-relaxed ${className}`} {...props}>
+      <p ref={ref} className={`text-[rgba(255,255,255,0.6)] mt-3 text-lg leading-relaxed ${className}`} {...props}>
         {children}
       </p>
     );
