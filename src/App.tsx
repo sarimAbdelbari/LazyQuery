@@ -4,7 +4,7 @@
  */
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { SchemaProvider } from './lib/hooks/useSchemaContext';
+import { SchemaProvider } from './lib/hooks/SchemaContext';
 import { HomePage } from './pages/HomePage';
 import { ModeSelectionPage } from './pages/ModeSelectionPage';
 import { VisualizerPage } from './pages/VisualizerPage';

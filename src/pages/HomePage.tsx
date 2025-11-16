@@ -6,14 +6,14 @@
 import { useNavigate } from 'react-router-dom';
 import { SchemaUpload } from '../components/SchemaUpload';
 import { NavigationBar } from '../layouts/NavigationBar';
-import { generatePath, DEMO_IDS } from '../lib/types/routing';
+import { generatePath, DEMO_IDS, type DemoId } from '../lib/types/routing';
 
 export const HomePage = () => {
   const navigate = useNavigate();
 
   const handleSchemaLoad = (schemaContent: string, moduleName: string) => {
     // Extract demo ID from module name
-    let demoId = DEMO_IDS.CRM; // default
+    let demoId: DemoId = DEMO_IDS.CRM; // default
     
     if (moduleName.includes('CRM')) demoId = DEMO_IDS.CRM;
     else if (moduleName.includes('PMS')) demoId = DEMO_IDS.PMS;

@@ -1,6 +1,7 @@
 import { Leva, folder, useControls } from 'leva';
 import { useTheme } from '../lib/contexts/theme';
 import { useSettings } from '../lib/contexts/settings';
+import { CogIcon } from 'lucide-react';
 
 export const SettingsPanel = () => {
   const { settings, updateSetting, updateTheme } = useSettings();
@@ -68,7 +69,7 @@ export const SettingsPanel = () => {
   });
 
   return (
-    <Leva
+    <Leva 
       theme={{
         colors: {
           elevation1: isDarkMode ? '#1c1c1c' : '#ffffff',
@@ -92,7 +93,7 @@ export const SettingsPanel = () => {
       }}
       titleBar={{
         drag: false,
-        title: '⚙️ Settings',
+        title:<CogIcon className="w-4 h-4" /> + ' Settings',
       }}
       collapsed={true}
     />

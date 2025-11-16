@@ -364,8 +364,11 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
           }}
         />
       </ReactFlow>
+<div className="absolute bottom-4 right-4 z-50">
+
 
       <SettingsPanel />
+</div>
       <RelationLegend 
         enabledRelations={enabledRelations}
         onRelationToggle={(relationType) => {

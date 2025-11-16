@@ -150,6 +150,18 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
               size={22} 
               className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa]"
             />
+            <Search 
+              size={22} 
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa]"
+            />
+            <Search 
+              size={22} 
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa]"
+            />
+            <Search 
+              size={22} 
+              className=" text-[#a1a1aa]"
+            />
             <input
               ref={inputRef}
               type="text"
