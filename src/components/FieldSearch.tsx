@@ -148,20 +148,9 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
           <div className="relative">
             <Search 
               size={22} 
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa]"
+              className="absolute left-4 z-50 top-1/2 transform -translate-y-1/2 text-[#a1a1aa]"
             />
-            <Search 
-              size={22} 
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa]"
-            />
-            <Search 
-              size={22} 
-              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#a1a1aa]"
-            />
-            <Search 
-              size={22} 
-              className=" text-[#a1a1aa]"
-            />
+         
             <input
               ref={inputRef}
               type="text"
@@ -184,7 +173,13 @@ export const FieldSearch = ({ models, enums, onFieldSelect }: FieldSearchProps) 
 
         {/* Search Results Dropdown */}
         {isExpanded && searchQuery && (
-          <div className="absolute top-full mt-3 w-96 max-h-[500px] overflow-y-auto rounded-2xl border-2 shadow-[0_8px_32px_rgba(0,0,0,0.5)] bg-[rgba(0,49,83,0.95)] backdrop-blur-2xl border-[rgba(255,255,255,0.1)]" style={{ overflowY: 'auto' }}>
+          <div 
+            className="absolute top-full mt-3 z-50 w-96 max-h-[calc(100vh-120px)] overflow-y-auto rounded-2xl border-2 shadow-[0_8px_32px_rgba(0,0,0,0.5)] bg-[rgba(0,49,83,0.95)] backdrop-blur-2xl border-[rgba(255,255,255,0.1)]"
+            style={{ 
+              overflowY: 'auto',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
             {searchResults.length > 0 ? (
               <div className="p-4">
                 <div className="text-sm font-bold mb-4 text-[rgba(255,255,255,0.6)]">
