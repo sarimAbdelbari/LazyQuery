@@ -72,14 +72,39 @@ const FieldCenterHandler = ({
 };
 
 // Component to handle screenshot - must be inside ReactFlow context
-const ScreenshotButton = ({ isDarkMode }: { isDarkMode: boolean }) => {
-  const { getNodes } = useReactFlow();
+const ScreenshotButton = ({ isDarkMode, settings }: { isDarkMode: boolean; settings: { theme: { backgroundColor?: string } } }) => {
+  const { getNodes, fitView } = useReactFlow();
+  const [isCapturing, setIsCapturing] = useState(false);
+  
+  const handleScreenshot = async () => {
+    setIsCapturing(true);
+    
+    // Fit view to show all nodes before capturing
+    fitView({ padding: 0.2, duration: 0 });
+    
+    // Wait for the view to update and render
+    await new Promise(resolve => setTimeout(resolve, 300));
+    
+    screenshot({
+      getNodes,
+      backgroundColor: settings.theme.backgroundColor || (isDarkMode ? '#1c1c1c' : '#ffffff'),
+      onStart: () => setIsCapturing(true),
+      onComplete: () => {
+        setIsCapturing(false);
+      },
+      onError: (error) => {
+        console.error('Screenshot error:', error);
+        setIsCapturing(false);
+      },
+    });
+  };
   
   return (
     <Controls>
       <ControlButton
-        title="Download Screenshot"
-        onClick={() => screenshot(getNodes)}
+        title={isCapturing ? "Capturing..." : "Download Screenshot"}
+        onClick={handleScreenshot}
+        disabled={isCapturing}
       >
         <IDownload color={isDarkMode ? 'white' : 'black'} />
       </ControlButton>
@@ -390,7 +415,7 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
           fieldToCenter={fieldToCenter}
           onCentered={() => setFieldToCenter(null)}
         />
-        <ScreenshotButton isDarkMode={isDarkMode} />
+        <ScreenshotButton isDarkMode={isDarkMode} settings={settings} />
 
         <Background
           color={isDarkMode ? '#222' : '#ccc'}
