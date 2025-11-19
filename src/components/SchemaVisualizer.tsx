@@ -5,6 +5,7 @@ import {
   ControlButton,
   Controls,
   ReactFlow,
+  MiniMap,
   useReactFlow,
 } from '@xyflow/react';
 import type { Edge } from '@xyflow/react';
@@ -13,14 +14,13 @@ import { useSettings } from '../lib/contexts/settings';
 import { useTheme } from '../lib/contexts/theme';
 import { useGraph } from '../lib/hooks/useGraph';
 import type { Enum, Model, ModelConnection } from '../lib/types/schema';
-// import { maskColor, nodeColor, nodeStrokeColor } from '../lib/utils/colors';
+import { maskColor, nodeColor, nodeStrokeColor } from '../lib/utils/colors';
 import { screenshot } from '../lib/utils/screenshot';
 import { EnumNode } from './EnumNode';
 import { ModelNode } from './ModelNode';
 import { SettingsPanel } from './SettingsPanel';
-import { TableSelector } from './TableSelector';
+import { TableFieldSelector } from './TableFieldSelector';
 import { RelationLegend } from './RelationLegend';
-import { FieldSearch } from './FieldSearch';
 import { IDownload } from './icons/IDownload';
 
 import '@xyflow/react/dist/style.css';
@@ -350,38 +350,28 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
       className="w-full h-screen relative"
       style={containerStyle}
     >
-      {/* Table Selector */}
-      <div className="absolute top-20 left-4 z-50">
-        <TableSelector
+      {/* Table & Field Selector */}
+      <div className="absolute top-5 left-4 z-50">
+        <TableFieldSelector
           models={models}
           enums={enums}
           selectedTables={selectedTables}
           onSelectionChange={setSelectedTables}
+          onFieldSelect={(field) => {
+            // Highlight the specific field
+            setHighlightedField({
+              modelName: field.modelName,
+              fieldName: field.fieldName,
+            });
+            
+            // Trigger centering on the node containing the field
+            setFieldToCenter({ modelName: field.modelName });
+            
+            // Clear highlight after 3 seconds
+            setTimeout(() => setHighlightedField(null), 3000);
+          }}
         />
       </div>
-
-      {/* Field Search */}
-      <FieldSearch
-        models={models}
-        enums={enums}
-        onFieldSelect={(field) => {
-          // Auto-select the table containing the field
-          if (!selectedTables.includes(field.modelName)) {
-            setSelectedTables(prev => [...prev, field.modelName]);
-          }
-          // Highlight the specific field
-          setHighlightedField({
-            modelName: field.modelName,
-            fieldName: field.fieldName,
-          });
-          
-          // Trigger centering on the node containing the field
-          setFieldToCenter({ modelName: field.modelName });
-          
-          // Clear highlight after 3 seconds
-          setTimeout(() => setHighlightedField(null), 3000);
-        }}
-      />
 
 
       <ReactFlow
@@ -402,19 +392,6 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
         />
         <ScreenshotButton isDarkMode={isDarkMode} />
 
-        {/* <MiniMap
-          nodeStrokeWidth={3}
-          zoomable
-          pannable
-          nodeColor={nodeColor(isDarkMode)}
-          nodeStrokeColor={nodeStrokeColor(isDarkMode)}
-          maskColor={maskColor(isDarkMode)}
-          style={{
-            backgroundColor: settings.theme.backgroundColor,
-            display: settings.showMinimap ? 'block' : 'none',
-          }}
-        /> */}
-
         <Background
           color={isDarkMode ? '#222' : '#ccc'}
           variant={getBackgroundVariant()}
@@ -423,7 +400,9 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
             pointerEvents: settings.showBackground ? 'auto' : 'none',
           }}
         />
+        
       </ReactFlow>
+     
       <SettingsPanel />
       <RelationLegend 
         enabledRelations={enabledRelations}
@@ -434,6 +413,19 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
           }));
         }}
       />
+      <div className='absolute  left-[14%] z-50'>
+        <MiniMap 
+          nodeStrokeWidth={3}
+          zoomable
+          pannable
+          nodeColor={nodeColor(isDarkMode)}
+          nodeStrokeColor={nodeStrokeColor(isDarkMode)}
+          maskColor={maskColor(isDarkMode)}
+          style={{
+            backgroundColor: settings.theme.backgroundColor,
+          }}
+        />
+      </div>
     </div>
   );
 };
