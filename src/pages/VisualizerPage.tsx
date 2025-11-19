@@ -11,7 +11,7 @@ import { ReactFlowProvider } from '@xyflow/react';
 import { SchemaVisualizer } from '../components/SchemaVisualizer';
 import { useSchemaContext } from '../lib/hooks/useSchemaContext';
 import { generatePath } from '../lib/types/routing';
-import { ArrowBigLeftDash, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export const VisualizerPage = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export const VisualizerPage = () => {
       
       <button
                 onClick={handleBackToModules}
-                className="flex items-center gap-2 absolute top-16 right-4 z-50 px-5 py-2.5 bg-[rgba(0,82,125,0.03)] hover:bg-[rgba(0,82,125,0.05)] border border-[rgba(255,255,255,0.1)] hover:border-[#00527d] rounded-xl transition-all duration-300 text-white font-semibold hover:scale-[1.02]"
+                className="flex items-center gap-2 absolute top-20 right-4 z-50 px-5 py-2.5 bg-[rgba(0,82,125,0.03)] hover:bg-[rgba(0,82,125,0.05)] border border-[rgba(255,255,255,0.1)] hover:border-[#00527d] rounded-xl transition-all duration-300 text-white font-semibold hover:scale-[1.02]"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>Back to Modules</span>

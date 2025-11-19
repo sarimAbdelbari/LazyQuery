@@ -4,7 +4,6 @@ import {
   ConnectionLineType,
   ControlButton,
   Controls,
-  MiniMap,
   ReactFlow,
   useReactFlow,
 } from '@xyflow/react';
@@ -14,7 +13,7 @@ import { useSettings } from '../lib/contexts/settings';
 import { useTheme } from '../lib/contexts/theme';
 import { useGraph } from '../lib/hooks/useGraph';
 import type { Enum, Model, ModelConnection } from '../lib/types/schema';
-import { maskColor, nodeColor, nodeStrokeColor } from '../lib/utils/colors';
+// import { maskColor, nodeColor, nodeStrokeColor } from '../lib/utils/colors';
 import { screenshot } from '../lib/utils/screenshot';
 import { EnumNode } from './EnumNode';
 import { ModelNode } from './ModelNode';
@@ -403,7 +402,7 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
         />
         <ScreenshotButton isDarkMode={isDarkMode} />
 
-        <MiniMap
+        {/* <MiniMap
           nodeStrokeWidth={3}
           zoomable
           pannable
@@ -414,7 +413,7 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
             backgroundColor: settings.theme.backgroundColor,
             display: settings.showMinimap ? 'block' : 'none',
           }}
-        />
+        /> */}
 
         <Background
           color={isDarkMode ? '#222' : '#ccc'}
@@ -425,11 +424,7 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
           }}
         />
       </ReactFlow>
-<div className="absolute bottom-4 right-4 z-50">
-
-
       <SettingsPanel />
-</div>
       <RelationLegend 
         enabledRelations={enabledRelations}
         onRelationToggle={(relationType) => {

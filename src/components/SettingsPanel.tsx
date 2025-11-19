@@ -1,110 +1,113 @@
-import { Leva, folder, useControls } from 'leva';
+import { useState } from 'react';
+import { ChevronUp, ChevronDown, Settings } from 'lucide-react';
 import { useSettings } from '../lib/contexts/settings';
+import { Switch } from './ui/Switch';
+import { Select } from './ui/Select';
+import { ColorPicker } from './ui/ColorPicker';
+import { Accordion } from './ui/Accordion';
 
 export const SettingsPanel = () => {
   const { settings, updateSetting, updateTheme } = useSettings();
-
-  useControls({
-    // Display Section
-    Display: folder({
-      direction: {
-        value: settings.layout,
-        options: {
-          'Top to Bottom': 'TB',
-          'Left to Right': 'LR',
-          'Bottom to Top': 'BT',
-          'Right to Left': 'RL',
-        },
-        onChange: (value) => updateSetting('layout', value as 'TB' | 'LR' | 'BT' | 'RL'),
-      },
-      showMinimap: {
-        value: settings.showMinimap,
-        onChange: (value) => updateSetting('showMinimap', value),
-      },
-      showBackground: {
-        value: settings.showBackground,
-        onChange: (value) => updateSetting('showBackground', value),
-      },
-      backgroundVariant: {
-        value: settings.backgroundVariant,
-        options: {
-          Lines: 'lines',
-          Dots: 'dots',
-          Cross: 'cross',
-        },
-        onChange: (value) => updateSetting('backgroundVariant', value as 'lines' | 'dots' | 'cross'),
-      },
-      showFieldTypes: {
-        value: settings.showFieldTypes,
-        onChange: (value) => updateSetting('showFieldTypes', value),
-      },
-      showFieldIcons: {
-        value: settings.showFieldIcons,
-        onChange: (value) => updateSetting('showFieldIcons', value),
-      },
-    }),
-
-    // Theme Section
-    Theme: folder({
-      primaryColor: {
-        value: settings.theme.primaryColor,
-        onChange: (value) => updateTheme({ primaryColor: value }),
-      },
-      secondaryColor: {
-        value: settings.theme.secondaryColor,
-        onChange: (value) => updateTheme({ secondaryColor: value }),
-      },
-      enumColor: {
-        value: settings.theme.enumColor,
-        onChange: (value) => updateTheme({ enumColor: value }),
-      },
-      titleColor: {
-        value: settings.theme.titleColor,
-        onChange: (value) => updateTheme({ titleColor: value }),
-      },
-    }),
-  });
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
-    <Leva 
-      theme={{
-        colors: {
-          // Background elevations using project's dark theme
-          elevation1: '#001029', // --bg-secondary
-          elevation2: '#00213e', // --bg-tertiary
-          elevation3: '#003153', // --bg-elevated
+    <div className="absolute top-4 right-4 z-50 w-[280px]">
+      <div className="panel rounded-xl shadow-lg overflow-hidden">
+        {/* Header */}
+        <button
+          type="button"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="w-full flex items-center justify-between px-4 py-3 bg-[var(--panel-bg)] hover:bg-[var(--panel-bg-hover)] transition-colors border-b border-[var(--panel-border)]"
+        >
+          <div className="flex items-center gap-2">
+            <Settings className="w-4 h-4 text-white" />
+            <h3 className="text-base font-bold text-white">Settings</h3>
+          </div>
+          {isCollapsed ? (
+            <ChevronUp className="w-4 h-4 text-white" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-white" />
+          )}
+        </button>
+
+        {/* Content */}
+        {!isCollapsed && (
+          <div className="p-4 space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto">
+            {/* Display Section */}
+            <Accordion title="Display" defaultOpen={true}>
+              <Select
+                label="Direction"
+                value={settings.layout}
+                options={[
+                  { label: 'Top to Bottom', value: 'TB' },
+                  { label: 'Left to Right', value: 'LR' },
+                  { label: 'Bottom to Top', value: 'BT' },
+                  { label: 'Right to Left', value: 'RL' },
+                ]}
+                onChange={(value) => updateSetting('layout', value as 'TB' | 'LR' | 'BT' | 'RL')}
+              />
+
           
-          // Accent colors using project's primary/secondary
-          accent1: settings.theme.primaryColor, // #00527d
-          accent2: settings.theme.secondaryColor, // #001477
-          accent3: '#4da7ca', // --primary-300 (cyan accent)
-          
-          // Highlight colors
-          highlight1: settings.theme.primaryColor,
-          highlight2: settings.theme.secondaryColor,
-          highlight3: '#00213e', // --bg-tertiary
-          
-          // Vivid accent
-          vivid1: settings.theme.primaryColor,
-          
-          // Folder/widget colors
-          folderWidgetColor: '#00213e', // --bg-tertiary
-          folderTextColor: '#ffffff', // Always white
-          
-          // Tooltip colors
-          toolTipBackground: '#001029', // --bg-secondary
-          toolTipText: '#ffffff', // Always white
-        },
-        sizes: {
-          rootWidth: '280px',
-        },
-      }}
-      titleBar={{
-        drag: false,
-        title: 'Settings',
-      }}
-      collapsed={true}
-    />
+
+              <Switch
+                label="Show Background"
+                checked={settings.showBackground}
+                onChange={(value) => updateSetting('showBackground', value)}
+              />
+
+              <Select
+                label="Background Variant"
+                value={settings.backgroundVariant}
+                options={[
+                  { label: 'Lines', value: 'lines' },
+                  { label: 'Dots', value: 'dots' },
+                  { label: 'Cross', value: 'cross' },
+                ]}
+                onChange={(value) => updateSetting('backgroundVariant', value as 'lines' | 'dots' | 'cross')}
+              />
+
+              <Switch
+                label="Show Field Types"
+                checked={settings.showFieldTypes}
+                onChange={(value) => updateSetting('showFieldTypes', value)}
+              />
+
+              <Switch
+                label="Show Field Icons"
+                checked={settings.showFieldIcons}
+                onChange={(value) => updateSetting('showFieldIcons', value)}
+              />
+            </Accordion>
+
+            {/* Theme Section */}
+            <Accordion title="Theme" defaultOpen={true}>
+              <ColorPicker
+                label="Primary Color"
+                value={settings.theme.primaryColor}
+                onChange={(value) => updateTheme({ primaryColor: value })}
+              />
+
+              <ColorPicker
+                label="Secondary Color"
+                value={settings.theme.secondaryColor}
+                onChange={(value) => updateTheme({ secondaryColor: value })}
+              />
+
+              <ColorPicker
+                label="Enum Color"
+                value={settings.theme.enumColor}
+                onChange={(value) => updateTheme({ enumColor: value })}
+              />
+
+              <ColorPicker
+                label="Title Color"
+                value={settings.theme.titleColor}
+                onChange={(value) => updateTheme({ titleColor: value })}
+              />
+            </Accordion>
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
-

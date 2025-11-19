@@ -42,7 +42,7 @@ export const RelationLegend = ({ enabledRelations, onRelationToggle }: RelationL
   ];
 
   return (
-    <div className="absolute bottom-4 right-4 z-40 p-6 rounded-2xl border-2 bg-[var(--bg-primary)] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-w-[320px]">
+    <div className="absolute bottom-4 right-4 z-40 p-6 rounded-2xl border-2 bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] backdrop-blur-xl border border-[rgba(255,255,255,0.1)] hover:border-[rgba(255,255,255,0.2)] text-white shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-w-[320px]">
       <div className="flex items-center justify-between mb-5">
         <h3 className="text-base font-bold text-white flex items-center gap-2">
           <Link size={22} />

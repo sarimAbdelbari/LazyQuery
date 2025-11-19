@@ -94,6 +94,12 @@
   /* Glassmorphism */
   --glass-bg: rgba(0, 82, 125, 0.03);
   --glass-border: rgba(255, 255, 255, 0.1);
+  
+  /* Global Panel/Component Colors */
+  --panel-bg: rgba(255, 255, 255, 0.05);
+  --panel-bg-hover: rgba(255, 255, 255, 0.1);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --panel-border-hover: rgba(255, 255, 255, 0.2);
 }
 
 html, body, #root {
@@ -120,6 +126,21 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
+}
+
+/* Panel utility class */
+.panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--panel-border);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.panel:hover {
+  background: var(--panel-bg-hover);
+  border-color: var(--panel-border-hover);
 }
 
 /* Gradient text utility */
@@ -154,42 +175,23 @@ body {
   background: rgba(0, 82, 125, 0.3);
 }
 
-/* Leva Settings Panel - Force white text for better visibility */
-/* Target Leva panel using class-based selectors */
-.leva,
-.leva *:not([type="color"]):not([class*="color-swatch"]):not([class*="color-picker"]) {
-  color: #ffffff !important;
+/* React Colorful - Dark theme styling */
+.react-colorful {
+  width: 100% !important;
+  height: 150px !important;
 }
 
-/* Labels and text specifically */
-.leva label,
-.leva [class*="label"],
-.leva [class*="Label"],
-.leva [class*="title"],
-.leva [class*="Title"],
-.leva span:not([class*="color"]):not([style*="background-color"]) {
-  color: #ffffff !important;
+.react-colorful__saturation {
+  border-radius: 4px 4px 0 0;
 }
 
-/* Input text (excluding color pickers) */
-.leva input[type="text"],
-.leva input[type="number"],
-.leva input:not([type="color"]) {
-  color: #ffffff !important;
+.react-colorful__hue {
+  border-radius: 0 0 4px 4px;
 }
 
-/* Select dropdowns */
-.leva select {
-  color: #ffffff !important;
-  background-color: #ffffff !important;
-}
-
-.leva select option {
-  color: #ffffff !important;
-  background-color: #ffffff !important;
-}
-
-/* Buttons */
-.leva button {
-  color: #ffffff !important;
+.react-colorful__pointer {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
