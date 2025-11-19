@@ -1,3 +1,4 @@
+import { Link } from 'lucide-react';
 import { useTheme } from '../lib/contexts/theme';
 
 interface RelationLegendProps {
@@ -27,7 +28,7 @@ export const RelationLegend = ({ enabledRelations, onRelationToggle }: RelationL
       example: 'Product → Category'
     },
     { 
-      type: 'Many-to-Many (M:N)', 
+      type: 'Many-to-Many (N:N)', 
       key: 'many-to-many' as const,
       color: isDarkMode ? '#06b6d4' : '#0891b2',
       example: 'Product ↔ Supplier'
@@ -41,10 +42,10 @@ export const RelationLegend = ({ enabledRelations, onRelationToggle }: RelationL
   ];
 
   return (
-    <div className="absolute bottom-4 right-4 z-40 p-6 rounded-2xl border-2 bg-[rgba(0,49,83,0.95)] backdrop-blur-2xl border-[rgba(255,255,255,0.1)] shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-w-[320px]">
+    <div className="absolute bottom-4 right-4 z-40 p-6 rounded-2xl border-2 bg-[var(--bg-primary)] backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] min-w-[320px]">
       <div className="flex items-center justify-between mb-5">
         <h3 className="text-base font-bold text-white flex items-center gap-2">
-          <span className="text-2xl">🔗</span>
+          <Link size={22} />
           Relationship Types
         </h3>
         <div className="flex gap-2">
@@ -67,7 +68,7 @@ export const RelationLegend = ({ enabledRelations, onRelationToggle }: RelationL
                 });
               }
             }}
-            className="px-4 py-2 text-sm rounded-xl transition-all duration-300 bg-[rgba(255,255,255,0.05)] hover:bg-[rgba(255,255,255,0.1)] text-white font-semibold"
+            className="px-4 py-2 cursor-pointer hover:scale-110 duration-300 text-sm rounded-xl transition-all  bg-[rgba(255,255,255,0.05)] hover:bg-[var(--bg-secondary)] text-white font-semibold"
             title={Object.values(enabledRelations).every(Boolean) ? 'Deselect All' : 'Select All'}
           >
             {Object.values(enabledRelations).every(Boolean) ? 'None' : 'All'}
@@ -99,7 +100,7 @@ export const RelationLegend = ({ enabledRelations, onRelationToggle }: RelationL
             </div>
           </div>
         ))}
-        <div className="pt-3 mt-3 border-t border-[rgba(255,255,255,0.1)]">
+        <div className="pt-3 mt-3 border-t border-primary-800">
           <div className="flex items-center gap-3 p-3 rounded-xl bg-[rgba(251,191,36,0.1)]">
             <span className="text-lg font-bold" style={{ color: '#fbbf24' }}>●</span>
             <span className="text-sm text-white">

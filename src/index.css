@@ -153,3 +153,43 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 82, 125, 0.3);
 }
+
+/* Leva Settings Panel - Force white text for better visibility */
+/* Target Leva panel using class-based selectors */
+.leva,
+.leva *:not([type="color"]):not([class*="color-swatch"]):not([class*="color-picker"]) {
+  color: #ffffff !important;
+}
+
+/* Labels and text specifically */
+.leva label,
+.leva [class*="label"],
+.leva [class*="Label"],
+.leva [class*="title"],
+.leva [class*="Title"],
+.leva span:not([class*="color"]):not([style*="background-color"]) {
+  color: #ffffff !important;
+}
+
+/* Input text (excluding color pickers) */
+.leva input[type="text"],
+.leva input[type="number"],
+.leva input:not([type="color"]) {
+  color: #ffffff !important;
+}
+
+/* Select dropdowns */
+.leva select {
+  color: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.leva select option {
+  color: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/* Buttons */
+.leva button {
+  color: #ffffff !important;
+}

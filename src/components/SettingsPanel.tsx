@@ -1,11 +1,8 @@
 import { Leva, folder, useControls } from 'leva';
-import { useTheme } from '../lib/contexts/theme';
 import { useSettings } from '../lib/contexts/settings';
-import { CogIcon } from 'lucide-react';
 
 export const SettingsPanel = () => {
   const { settings, updateSetting, updateTheme } = useSettings();
-  const { isDarkMode } = useTheme();
 
   useControls({
     // Display Section
@@ -18,7 +15,7 @@ export const SettingsPanel = () => {
           'Bottom to Top': 'BT',
           'Right to Left': 'RL',
         },
-        onChange: (value) => updateSetting('layout', value as any),
+        onChange: (value) => updateSetting('layout', value as 'TB' | 'LR' | 'BT' | 'RL'),
       },
       showMinimap: {
         value: settings.showMinimap,
@@ -35,7 +32,7 @@ export const SettingsPanel = () => {
           Dots: 'dots',
           Cross: 'cross',
         },
-        onChange: (value) => updateSetting('backgroundVariant', value as any),
+        onChange: (value) => updateSetting('backgroundVariant', value as 'lines' | 'dots' | 'cross'),
       },
       showFieldTypes: {
         value: settings.showFieldTypes,
@@ -72,20 +69,31 @@ export const SettingsPanel = () => {
     <Leva 
       theme={{
         colors: {
-          elevation1: isDarkMode ? '#1c1c1c' : '#ffffff',
-          elevation2: isDarkMode ? '#2a2a2a' : '#f5f5f5',
-          elevation3: isDarkMode ? '#333333' : '#e5e5e5',
-          accent1: settings.theme.primaryColor,
-          accent2: settings.theme.secondaryColor,
-          accent3: isDarkMode ? '#6b7280' : '#9ca3af',
+          // Background elevations using project's dark theme
+          elevation1: '#001029', // --bg-secondary
+          elevation2: '#00213e', // --bg-tertiary
+          elevation3: '#003153', // --bg-elevated
+          
+          // Accent colors using project's primary/secondary
+          accent1: settings.theme.primaryColor, // #00527d
+          accent2: settings.theme.secondaryColor, // #001477
+          accent3: '#4da7ca', // --primary-300 (cyan accent)
+          
+          // Highlight colors
           highlight1: settings.theme.primaryColor,
           highlight2: settings.theme.secondaryColor,
-          highlight3: isDarkMode ? '#374151' : '#d1d5db',
+          highlight3: '#00213e', // --bg-tertiary
+          
+          // Vivid accent
           vivid1: settings.theme.primaryColor,
-          folderWidgetColor: isDarkMode ? '#374151' : '#d1d5db',
-          folderTextColor: isDarkMode ? '#ffffff' : '#000000',
-          toolTipBackground: isDarkMode ? '#000000' : '#ffffff',
-          toolTipText: isDarkMode ? '#ffffff' : '#000000',
+          
+          // Folder/widget colors
+          folderWidgetColor: '#00213e', // --bg-tertiary
+          folderTextColor: '#ffffff', // Always white
+          
+          // Tooltip colors
+          toolTipBackground: '#001029', // --bg-secondary
+          toolTipText: '#ffffff', // Always white
         },
         sizes: {
           rootWidth: '280px',
@@ -93,7 +101,7 @@ export const SettingsPanel = () => {
       }}
       titleBar={{
         drag: false,
-        title:<CogIcon className="w-4 h-4" /> + ' Settings',
+        title: 'Settings',
       }}
       collapsed={true}
     />

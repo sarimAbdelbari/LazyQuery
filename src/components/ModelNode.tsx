@@ -11,13 +11,13 @@ import {
   Calculator,
   Calendar,
   CheckSquare,
-  ChevronDown,
-  ChevronRight,
   File,
   FileText,
   Hash,
   Link2,
   List,
+  Maximize2,
+  Minimize2,
   Type,
 } from 'lucide-react';
 
@@ -88,17 +88,17 @@ export const ModelNode = memo(({ data }: NodeProps<ModelNodeType>) => {
               e.stopPropagation();
               (data as any).onExpand?.();
             }}
-            className="flex items-center gap-1 text-white hover:text-gray-200 transition-colors"
+            className="flex items-center gap-2 cursor-pointer  text-yellow-300 hover:text-yellow-400 hover:scale-110 duration-300 transition-colors"
             title={`${(data as any).isExpanded ? 'Collapse' : 'Expand'} related tables (${(data as any).relatedTables.length})`}
           >
-            {(data as any).isExpanded ? (
-              <ChevronDown size={16} />
-            ) : (
-              <ChevronRight size={16} />
-            )}
-            <span className="text-xs font-medium">
-              {(data as any).relatedTables.length}
+            <span className="text-md font-medium transition-all duration-300">
+              {(data as any).relatedTables.length} relations
             </span>
+            {(data as any).isExpanded ? (
+              <Minimize2 size={22} />
+            ) : (
+              <Maximize2 size={22} />
+            )}
           </button>
         )}
       </div>

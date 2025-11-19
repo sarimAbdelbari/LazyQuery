@@ -9,7 +9,7 @@ import {
   useReactFlow,
 } from '@xyflow/react';
 import type { Edge } from '@xyflow/react';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import { useSettings } from '../lib/contexts/settings';
 import { useTheme } from '../lib/contexts/theme';
 import { useGraph } from '../lib/hooks/useGraph';
@@ -32,9 +32,64 @@ interface Props {
   enums: Enum[];
 }
 
+// Component to handle centering on a field - must be inside ReactFlow context
+const FieldCenterHandler = ({ 
+  fieldToCenter, 
+  onCentered 
+}: { 
+  fieldToCenter: { modelName: string } | null;
+  onCentered: () => void;
+}) => {
+  const { getNodes, setCenter, getZoom } = useReactFlow();
+  const NODE_WIDTH = 250;
+  const NODE_HEIGHT = 400;
+
+  useEffect(() => {
+    if (!fieldToCenter) return;
+    
+    // Small delay to ensure node is rendered
+    const timeoutId = setTimeout(() => {
+      const allNodes = getNodes();
+      const targetNode = allNodes.find(node => node.id === fieldToCenter.modelName);
+      if (targetNode) {
+        const currentZoom = getZoom();
+        // Center on the node with a smooth transition
+        setCenter(
+          targetNode.position.x + NODE_WIDTH / 2,
+          targetNode.position.y + NODE_HEIGHT / 2,
+          {
+            zoom: Math.max(currentZoom, 0.8), // Don't zoom out too much, maintain current zoom if it's higher
+            duration: 500,
+          }
+        );
+        onCentered();
+      }
+    }, 100);
+    
+    return () => clearTimeout(timeoutId);
+  }, [fieldToCenter, getNodes, setCenter, getZoom, onCentered]);
+
+  return null;
+};
+
+// Component to handle screenshot - must be inside ReactFlow context
+const ScreenshotButton = ({ isDarkMode }: { isDarkMode: boolean }) => {
+  const { getNodes } = useReactFlow();
+  
+  return (
+    <Controls>
+      <ControlButton
+        title="Download Screenshot"
+        onClick={() => screenshot(getNodes)}
+      >
+        <IDownload color={isDarkMode ? 'white' : 'black'} />
+      </ControlButton>
+    </Controls>
+  );
+};
+
 export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
   const { isDarkMode } = useTheme();
-  const { getNodes } = useReactFlow();
   const { settings } = useSettings();
   
   // Table selection state
@@ -44,6 +99,11 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
   const [highlightedField, setHighlightedField] = useState<{
     modelName: string;
     fieldName: string;
+  } | null>(null);
+  
+  // State to trigger centering on a field
+  const [fieldToCenter, setFieldToCenter] = useState<{
+    modelName: string;
   } | null>(null);
   
   // Table expansion state - tracks which tables are expanded
@@ -315,6 +375,10 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
             modelName: field.modelName,
             fieldName: field.fieldName,
           });
+          
+          // Trigger centering on the node containing the field
+          setFieldToCenter({ modelName: field.modelName });
+          
           // Clear highlight after 3 seconds
           setTimeout(() => setHighlightedField(null), 3000);
         }}
@@ -333,14 +397,11 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
         connectionLineType={ConnectionLineType.SmoothStep}
         minZoom={0.2}
       >
-        <Controls>
-          <ControlButton
-            title="Download Screenshot"
-            onClick={() => screenshot(getNodes)}
-          >
-            <IDownload color={isDarkMode ? 'white' : 'black'} />
-          </ControlButton>
-        </Controls>
+        <FieldCenterHandler 
+          fieldToCenter={fieldToCenter}
+          onCentered={() => setFieldToCenter(null)}
+        />
+        <ScreenshotButton isDarkMode={isDarkMode} />
 
         <MiniMap
           nodeStrokeWidth={3}

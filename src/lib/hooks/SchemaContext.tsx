@@ -3,19 +3,9 @@
  * Manages and shares schema state across all routes
  */
 
-import { createContext, useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import type { Enum, Model, ModelConnection } from '../types/schema';
-
-export interface SchemaContextType {
-  models: Model[];
-  enums: Enum[];
-  connections: ModelConnection[];
-  currentModule: string;
-  setSchemaData: (models: Model[], enums: Enum[], connections: ModelConnection[], moduleName: string) => void;
-  clearSchemaData: () => void;
-}
-
-export const SchemaContext = createContext<SchemaContextType | undefined>(undefined);
+import { SchemaContext } from './schema-context';
 
 export function SchemaProvider({ children }: { children: ReactNode }) {
   const [models, setModels] = useState<Model[]>([]);

@@ -4,7 +4,7 @@
  */
 
 import { useContext } from 'react';
-import { SchemaContext } from './SchemaContext';
+import { SchemaContext } from './schema-context';
 
 export function useSchemaContext() {
   const context = useContext(SchemaContext);
