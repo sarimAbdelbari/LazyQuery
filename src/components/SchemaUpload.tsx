@@ -23,7 +23,7 @@ export const SchemaUpload = ({ onSchemaLoad }: SchemaUploadProps) => {
 
   const demos = [
     {
-      icon: '📊',
+      icon: '/logos/salesforce.png',
       schema: CRM_SCHEMA,
       name: CRM_SCHEMA_NAME,
       description: CRM_SCHEMA_DESCRIPTION,
@@ -31,7 +31,7 @@ export const SchemaUpload = ({ onSchemaLoad }: SchemaUploadProps) => {
       features: ['Lead Management', 'Opportunity Tracking', 'Activity Logging', 'Contact Management']
     },
     {
-      icon: '🏢',
+      icon: '/logos/appfolio.png',
       schema: PMS_SCHEMA,
       name: PMS_SCHEMA_NAME,
       description: PMS_SCHEMA_DESCRIPTION,
@@ -39,7 +39,7 @@ export const SchemaUpload = ({ onSchemaLoad }: SchemaUploadProps) => {
       features: ['Property Management', 'Lease Tracking', 'Maintenance Requests', 'Payment Processing']
     },
     {
-      icon: '📁',
+      icon: '/logos/DocuWareDMS.png',
       schema: DMS_SCHEMA,
       name: DMS_SCHEMA_NAME,
       description: DMS_SCHEMA_DESCRIPTION,
@@ -47,7 +47,7 @@ export const SchemaUpload = ({ onSchemaLoad }: SchemaUploadProps) => {
       features: ['Document Versioning', 'Permission Control', 'Workflow Automation', 'Audit Trails']
     },
     {
-      icon: '⚙️',
+      icon: '/logos/odoo.png',
       schema: ERP_SCHEMA,
       name: ERP_SCHEMA_NAME,
       description: ERP_SCHEMA_DESCRIPTION,
@@ -132,7 +132,11 @@ export const SchemaUpload = ({ onSchemaLoad }: SchemaUploadProps) => {
                   <div className="bg-gradient-to-br from-[#00527d]/10 to-[#001477]/10 border-b border-[rgba(255,255,255,0.1)]">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3">
-                        <span className="text-4xl">{demo.icon}</span>
+                        <img 
+                          src={demo.icon} 
+                          alt={`${demo.name} logo`}
+                          className="w-14 h-14 object-contain"
+                        />
                         <span className="text-xl">{demo.name}</span>
                       </CardTitle>
                       <CardDescription className="text-base mt-3 leading-relaxed">
