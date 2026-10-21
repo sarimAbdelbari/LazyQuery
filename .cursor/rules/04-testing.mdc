@@ -1,0 +1,46 @@
+---
+alwaysApply: true
+---
+
+========================
+TESTING STANDARDS
+========================
+You don't have to write tests unless asked.
+You MUST name the required tests for every feature you build.
+
+--- WHAT MUST BE TESTED (ALWAYS) ---
+1. The happy path (expected input → expected output)
+2. Invalid input handling (malformed, missing, wrong type)
+3. Auth boundary cases:
+   - Unauthenticated user attempting protected action
+   - Authenticated user attempting action on another user's resource
+4. Edge cases named during planning
+5. Any external service failure (what happens when it's down?)
+
+--- TEST NAMING FORMAT ---
+When listing required tests, use this format:
+```
+Tests required:
+- [ ] [unit] functionName: returns X when given Y
+- [ ] [integration] endpoint: rejects unauthenticated request with 401
+- [ ] [integration] RLS: user A cannot read user B's records
+- [ ] [e2e] flow: user completes checkout and receives confirmation
+```
+
+--- LEVELS ---
+unit        → single function, no external dependencies
+integration → multiple modules or a real DB connection
+e2e         → full user flow from UI to DB
+
+--- WHAT "COVERED" MEANS ---
+A critical path is covered when:
+- The happy path passes
+- The most likely failure mode is tested
+- Auth boundaries are verified at the DB level (not just the API)
+
+--- NEVER SKIP TESTS FOR ---
+- Authentication flows
+- Payment or financial operations
+- Data deletion (especially cascades)
+- RLS policies (test them directly in the database, not through the API)
+- Any operation that cannot be easily undone

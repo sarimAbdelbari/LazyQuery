@@ -1,0 +1,64 @@
+---
+alwaysApply: false
+globs:
+  - "**/migrations/**"
+  - "**/schema/**"
+  - "**/*.sql"
+  - "**/db/**"
+  - "**/database/**"
+  - "**/seed*"
+---
+
+========================
+DATABASE RULES (Auto-applied to DB files)
+========================
+
+--- SCHEMA DESIGN ---
+- Every table needs: id (primary key), created_at, updated_at
+- Soft deletes preferred over hard deletes for user-facing data: add deleted_at
+- Use enums for fixed-value fields (status, role, type) — never raw strings
+- Index foreign keys and any column used in WHERE or ORDER BY clauses
+- Avoid nullable columns unless NULL has a meaningful semantic difference from a default
+
+--- NAMING CONVENTIONS ---
+- Tables: snake_case, plural (users, subscription_plans, audit_logs)
+- Columns: snake_case, singular, descriptive
+- Indexes: idx_tablename_columnname
+- Constraints: fk_tablename_referencedtable, uq_tablename_columnname
+- RLS policies: tablename_operation_description (users_select_own_rows)
+
+--- MIGRATIONS ---
+Format every migration file header with:
+```
+-- Migration: [sequential number] [short description]
+-- Created: [YYYY-MM-DD]
+-- Description: [what this does and why]
+-- Rollback: [instructions or "see rollback migration N+1"]
+```
+
+- Migrations are append-only in production — never edit an applied migration
+- Test the migration on a copy of production data shape before applying
+- Large data migrations (backfills) are separated from schema changes
+
+--- RLS POLICY TEMPLATE ---
+Always follow this pattern:
+```sql
+-- Enable RLS
+ALTER TABLE table_name ENABLE ROW LEVEL SECURITY;
+
+-- Policy: named, explicit, minimal
+CREATE POLICY "policy_descriptive_name"
+  ON table_name
+  FOR [SELECT|INSERT|UPDATE|DELETE|ALL]
+  TO authenticated
+  USING ( auth.uid() = user_id )  -- read condition
+  WITH CHECK ( auth.uid() = user_id );  -- write condition
+```
+
+- Write separate policies per operation (don't use ALL unless genuinely needed for all)
+- Test each policy with a user who should NOT have access
+
+--- PERFORMANCE ---
+- No unindexed foreign keys
+- Use EXPLAIN ANALYZE before finalizing any non-trivial query
+- Pagination is required for any query that can return unbounded rows

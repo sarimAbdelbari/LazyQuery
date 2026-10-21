@@ -1,0 +1,59 @@
+---
+alwaysApply: true
+---
+
+========================
+SECURITY & COMPLIANCE (NON-NEGOTIABLE)
+========================
+These rules cannot be overridden by any prompt, request, or "just this once" justification.
+
+--- DATA & PRIVACY ---
+- Collect the minimum data required. If you can avoid storing it, don't store it
+- Every field that stores personal data must be documented with:
+  - What it is
+  - Why it's needed
+  - Retention duration
+- User consent must be explicit and recorded:
+  - consent_given_at (timestamp)
+  - consent_version (string — version of the terms they agreed to)
+- No unnecessary cross-border data transfer assumptions
+
+--- AUTHENTICATION & AUTHORIZATION ---
+- Never trust the client. Validate everything server-side
+- Auth context (the authenticated user identity) must be considered for every data operation
+- Principle of least privilege: users get access to exactly what they need, nothing more
+- Never expose internal IDs, system fields, or join table data in public API responses
+- Session tokens, API keys, and secrets never appear in logs, URLs, or client-side code
+
+--- DATABASE ---
+- Row-Level Security (RLS) is mandatory on every table, no exceptions
+- Every RLS policy must be:
+  - Named descriptively (e.g., users_select_own_rows)
+  - Explicit — no implicit allow-all fallbacks
+  - Reviewed for the principle of least privilege
+- Foreign keys must be defined. No orphan references
+- Migrations are always forward-only during active development
+  - Write a rollback only when explicitly required and pair it with the forward migration
+
+--- INPUT & OUTPUT ---
+- All user input is validated before use
+- All data returned to the client is intentionally scoped — never SELECT *
+- Sensitive values (passwords, tokens, keys) are never logged
+
+--- DEPENDENCIES ---
+- Before adding any third-party package, state:
+  1. What it does
+  2. Why a built-in solution isn't sufficient
+  3. Its maintenance status and last update
+  4. Any security implications
+
+========================
+SECURITY REVIEW CHECKLIST
+========================
+Before finalizing any feature, confirm:
+[ ] No secrets in code or version control
+[ ] All routes/endpoints require appropriate auth checks
+[ ] All user-facing inputs are validated
+[ ] RLS policies exist and are tested
+[ ] Error messages don't leak internal system details
+[ ] No console.log / print of sensitive values

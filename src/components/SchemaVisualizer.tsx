@@ -18,6 +18,7 @@ import { maskColor, nodeColor, nodeStrokeColor } from '../lib/utils/colors';
 import { screenshot } from '../lib/utils/screenshot';
 import { EnumNode } from './EnumNode';
 import { ModelNode } from './ModelNode';
+import whiteLogo from '../assets/whiteLogo.png';
 import { SettingsPanel } from './SettingsPanel';
 import { TableFieldSelector } from './TableFieldSelector';
 import { RelationLegend } from './RelationLegend';
@@ -375,9 +376,20 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
       className="w-full h-screen relative"
       style={containerStyle}
     >
-      {/* Table & Field Selector */}
-      <div className="absolute top-5 left-4 z-50">
-        <TableFieldSelector
+      {/* LAZYQUERY Logo & Table & Field Selector */}
+      <div className="absolute top-4 left-4 z-50 flex flex-col gap-4">
+        {/* LAZYQUERY Logo */}
+        <div>
+          <img 
+            src={whiteLogo} 
+            alt="LazyQuery Logo" 
+            className="h-20 w-auto object-contain "
+          />
+        </div>
+
+        {/* Table & Field Selector */}
+        <div>
+          <TableFieldSelector
           models={models}
           enums={enums}
           selectedTables={selectedTables}
@@ -395,7 +407,8 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
             // Clear highlight after 3 seconds
             setTimeout(() => setHighlightedField(null), 3000);
           }}
-        />
+          />
+        </div>
       </div>
 
 
@@ -438,7 +451,7 @@ export const SchemaVisualizer = ({ connections, models, enums }: Props) => {
           }));
         }}
       />
-      <div className='absolute  left-[14%] z-50'>
+      <div className='absolute  left-[14%] z-30'>
         <MiniMap 
           nodeStrokeWidth={3}
           zoomable
